@@ -49,5 +49,6 @@
             <Font name="Berlin Sans FB" size="14.0" />
          </font>
       </Button>
+      <Button fx:id="limpiar_lista_btn" layoutX="757.0" layoutY="457.0" mnemonicParsing="false" onAction="#limpiar_lista_btn" prefHeight="26.0" prefWidth="20.0" style="-fx-background-color: #ffae00; -fx-border-color: #ffae00;" />
    </children>
 </AnchorPane>

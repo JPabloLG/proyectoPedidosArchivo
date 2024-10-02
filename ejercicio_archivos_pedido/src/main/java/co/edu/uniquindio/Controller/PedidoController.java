@@ -39,6 +39,9 @@ public class PedidoController {
     private Button generar_pedido_btn;
 
     @FXML
+    private Button limpiar_lista_btn;
+
+    @FXML
     private Button mostrar_pedido_btn;
 
     @FXML
@@ -117,6 +120,14 @@ public class PedidoController {
     void mostrar_pedido_btn(ActionEvent event) {
         PedidoView pedidoView = new PedidoView();
         lista_pedidos_txt.setText(pedidoView.mostrarListaPedidos());
+
+        txt_total.setText("");
+        txt_iva.setText("");
+    }
+
+    @FXML
+    void limpiar_lista_btn(ActionEvent event) {
+        lista_pedidos_txt.setText("");
     }
 
     public LinkedList<Pedido> mostrarPedidos(){
