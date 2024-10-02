@@ -20,7 +20,7 @@ public class Persistencia {
 	public String obtenerRutaProperties(){
         Properties properties= new Properties();
 		try {
-			properties.load(new FileInputStream(new File("C:/td/rutas/pedidos.txt")));
+			properties.load(new FileInputStream(new File("C:/td/rutas/properties.properties")));
             return properties.get("rutaArchivoPedidos").toString();
 		} 
         catch (FileNotFoundException e) {
@@ -41,7 +41,7 @@ public class Persistencia {
 		textoPedido.append(pedido.getCodigo()+",");
 		textoPedido.append(pedido.getFechaPedido()+",");
 		textoPedido.append(pedido.getTotal()+",");
-		textoPedido.append(pedido.getIva()+"\n");
+		textoPedido.append(pedido.getIva() + "\n");
 		//textoPedido.append(pedido.getProductos()+"\n");
 
 		ArchivoUtil.guardarArchivo(rutaArchivoPedidos,textoPedido.toString(),true);
@@ -52,14 +52,19 @@ public class Persistencia {
 		rutaArchivoPedidos = obtenerRutaProperties();
 
 		ArrayList<String> contenido = ArchivoUtil.leerArchivo(rutaArchivoPedidos);
-		//int codigo, Date fechaPedido, double total, double iva, ArrayList<Producto> productos
+
 		for (String pedidoTexto : contenido) {
 			String[] split = pedidoTexto.split(",");
-			
-            Pedido pedido = new Pedido(split[0], split[1], Double.valueOf(split[2]), Double.valueOf(split[3]));
-            laBurguesa.getPedidos().add(pedido);
+
+			//(String codigo, String fechaPedido, double total, double iva)
+
+			if (split.length >= 4) {
+				Pedido pedido = new Pedido(split[0], split[1], Double.valueOf(split[2]), Double.valueOf(split[3]));
+				laBurguesa.getPedidos().add(pedido);
+			} else {
+				System.err.println("Línea con datos incompletos: " + pedidoTexto);
+			}
 		}
 		return laBurguesa.getPedidos();
-	}
-    
+	} 
 }

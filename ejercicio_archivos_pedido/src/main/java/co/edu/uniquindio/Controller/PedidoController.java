@@ -10,6 +10,7 @@ import co.edu.uniquindio.Model.LaBurguesa;
 import co.edu.uniquindio.Model.Producto;
 import co.edu.uniquindio.Model.TipoProducto;
 import co.edu.uniquindio.Persistencia.Persistencia;
+import co.edu.uniquindio.View.PedidoView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,6 +37,9 @@ public class PedidoController {
 
     @FXML
     private Button generar_pedido_btn;
+
+    @FXML
+    private Button mostrar_pedido_btn;
 
     @FXML
     private TextField producto_txt;
@@ -79,21 +83,25 @@ public class PedidoController {
 
     public void addProductos(Producto producto){
         Pedido pedido = new Pedido("", "", 0, 0);
-        pedido.addProducto(producto);
+        pedido.agregarProducto(producto);
     }
 
     @FXML
     void generar_pedido_btn(ActionEvent event) throws IOException {
         String codigo = codigo_txt.getText();
         String fecha = fecha_txt.getText();
-        //String cantidadtxt = cantidad_txt.getText();
-        //int cantidad = Integer.parseInt(cantidadtxt);
-        int cantidad = 1;
+        String cantidadtxt = cantidad_txt.getText();
+        int cantidad = Integer.parseInt(cantidadtxt);
         String producto = producto_txt.getText();
-
         double total = Pedido.calcularTotal(producto, cantidad);
+        double iva = total - (total - (total*0.19));
+        String totalstr = String.valueOf(total);
+        String ivastr = String.valueOf(iva);
 
-        Pedido pedido = new Pedido(codigo, fecha, total, total - (total - (total*0.19))); 
+        txt_total.setText("$" + totalstr);
+        txt_iva.setText("$" + ivastr);
+
+        Pedido pedido = new Pedido(codigo, fecha, total, iva); 
 
         Persistencia persistencia = new Persistencia();
         persistencia.guardarPedido(pedido);
@@ -103,10 +111,15 @@ public class PedidoController {
         fecha_txt.setText("");
         producto_txt.setText("");
         cantidad_txt.setText("");
-
     }
 
-    public LinkedList<Pedido> mostrarListaPedidos(){
+    @FXML
+    void mostrar_pedido_btn(ActionEvent event) {
+        PedidoView pedidoView = new PedidoView();
+        lista_pedidos_txt.setText(pedidoView.mostrarListaPedidos());
+    }
+
+    public LinkedList<Pedido> mostrarPedidos(){
         Persistencia persistencia = new Persistencia();
         try {
 			persistencia.cargarPedidos(laBurguesa);
@@ -118,16 +131,7 @@ public class PedidoController {
 		}
 		return null;
     }
-/*
-    public void mostrarPedidos() {
-		PedidoController pedidoController = new PedidoController();
-		LinkedList<Pedido> mostrarListaPedidos = pedidoController.mostrarListaPedidos();
-		String pedidos = "";
-		for (Pedido pedido : mostrarListaPedidos) {
-			pedidos += pedido.getCodigo()+"\n";
-		}
-	}
-*/
+
     @FXML
     void initialize() {
         assert agregar_btn != null : "fx:id=\"agregar_btn\" was not injected: check your FXML file 'PedidoView.fxml'.";

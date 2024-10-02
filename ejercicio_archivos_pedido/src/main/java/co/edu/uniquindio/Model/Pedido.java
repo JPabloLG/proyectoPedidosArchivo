@@ -2,13 +2,14 @@ package co.edu.uniquindio.Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Pedido {
     private String codigo;
     private String fechaPedido;
     private double total;
     private double iva;
-    public ArrayList<Producto> productos = new ArrayList<>();
+    public LinkedList<Producto> productos = new LinkedList();
 
     // Constructor
     
@@ -54,25 +55,25 @@ public class Pedido {
         this.iva = iva;
     }
 
-    public ArrayList<Producto> getProductos() {
+    public LinkedList<Producto> getProductos() {
       return productos;
     }
 
-    public static double calcularTotal(String producto, int cantidad){
+    public static double calcularTotal(String producto, double cantidad){
         double total = 0;
-        if(producto == "sencilla" || producto == "Sencilla" || producto == "SENCILLA"){
-            total = 8000 * cantidad;
+        if(producto.equals("sencilla") || producto.equals("Sencilla") || producto.equals("SENCILLA")){
+            total += 8000 * cantidad;
         }
-        else if(producto == "gigante" || producto == "Gigante" || producto == "GIGANTE"){
-            total = 17000 * cantidad;
+        else if(producto.equals("gigante") || producto.equals("Gigante") || producto.equals("GIGANTE")){
+            total += 17000 * cantidad;
         }
-        else if(producto == "extraqueso" || producto == "Extraqueso" || producto == "EXTRAQUESO"){
-            total = 15000 * cantidad;
+        else if(producto.equals("extraqueso") || producto.equals("Extraqueso") || producto.equals("EXTRAQUESO")){
+            total += 15000 * cantidad;
         }
         return total;
     }
 
-    public void addProducto(Producto producto) {
+    public void agregarProducto(Producto producto) {
         this.productos.add(producto);
     }
 
@@ -81,6 +82,4 @@ public class Pedido {
         return "Pedido [codigo=" + codigo + ", fechaPedido=" + fechaPedido + ", total=" + total + ", productos="
                 + productos + "]";
     }
-
-    
 }

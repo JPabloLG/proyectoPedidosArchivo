@@ -30,7 +30,7 @@
             <Font name="Berlin Sans FB" size="24.0" />
          </font>
       </Text>
-      <Button fx:id="generar_pedido_btn" layoutX="330.0" layoutY="407.0" mnemonicParsing="false" onAction="#generar_pedido_btn" prefHeight="42.0" prefWidth="140.0" style="-fx-background-color: #ffae00; -fx-border-color: #ffae00;" text="GENERAR PEDIDO" textFill="#6e4d0c">
+      <Button fx:id="generar_pedido_btn" layoutX="166.0" layoutY="383.0" mnemonicParsing="false" onAction="#generar_pedido_btn" prefHeight="42.0" prefWidth="140.0" style="-fx-background-color: #ffae00; -fx-border-color: #ffae00;" text="GENERAR PEDIDO" textFill="#6e4d0c">
          <font>
             <Font name="Berlin Sans FB" size="14.0" />
          </font>
@@ -40,6 +40,14 @@
             <Font name="Berlin Sans FB" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="lista_pedidos_txt" layoutX="499.0" layoutY="330.0" prefHeight="131.0" prefWidth="261.0" />
+      <Label fx:id="lista_pedidos_txt" layoutX="400.0" layoutY="382.0" prefHeight="103.0" prefWidth="347.0" style="-fx-border-color: #ffae00;">
+         <font>
+            <Font name="Berlin Sans FB" size="14.0" />
+         </font></Label>
+      <Button fx:id="mostrar_pedido_btn" layoutX="161.0" layoutY="434.0" mnemonicParsing="false" onAction="#mostrar_pedido_btn" prefHeight="42.0" prefWidth="151.0" style="-fx-background-color: #ffae00; -fx-border-color: #ffae00;" text="MOSTRAR PEDIDOS" textFill="#6e4d0c">
+         <font>
+            <Font name="Berlin Sans FB" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

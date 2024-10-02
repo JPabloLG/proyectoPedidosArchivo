@@ -31,5 +31,4 @@ public class LaBurguesa {
     public LinkedList<Pedido> getPedidos() {
         return pedidos;
     }
-
 }
