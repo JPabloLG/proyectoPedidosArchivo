@@ -9,21 +9,15 @@ public class Pedido {
     private String fechaPedido;
     private double total;
     private double iva;
+    private String tipoProducto;
     public LinkedList<Producto> productos = new LinkedList();
 
-    // Constructor
-    
-
-    // Getters y setters
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public Pedido(String codigo, String fechaPedido, double total, double iva) {
+    public Pedido(String codigo, String fechaPedido, double total, double iva, String tipoProducto) {
         this.codigo = codigo;
         this.fechaPedido = fechaPedido;
         this.total = total;
         this.iva = iva;
+        this.tipoProducto = tipoProducto;
         this.productos = productos;
     }
 
@@ -55,8 +49,16 @@ public class Pedido {
         this.iva = iva;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+    
     public LinkedList<Producto> getProductos() {
       return productos;
+    }
+
+    public String getProducto(){
+        return tipoProducto;
     }
 
     public static double calcularTotal(String producto, double cantidad){

@@ -19,7 +19,7 @@ public class PedidoView {
 
         String pedidos = "";
         for(Pedido pedido : listaPedidos){
-            pedidos += " Código: "+ pedido.getCodigo() + " Fecha: " + pedido.getFechaPedido() + "\n";
+            pedidos += " Código: "+ pedido.getCodigo() + " Fecha: " + pedido.getFechaPedido() + " Producto: " + pedido.getProducto() + "\n";
         }
 
         return pedidos;

@@ -41,7 +41,8 @@ public class Persistencia {
 		textoPedido.append(pedido.getCodigo()+",");
 		textoPedido.append(pedido.getFechaPedido()+",");
 		textoPedido.append(pedido.getTotal()+",");
-		textoPedido.append(pedido.getIva() + "\n");
+		textoPedido.append(pedido.getIva() + ",");
+		textoPedido.append(pedido.getProducto() + "\n");
 		//textoPedido.append(pedido.getProductos()+"\n");
 
 		ArchivoUtil.guardarArchivo(rutaArchivoPedidos,textoPedido.toString(),true);
@@ -59,7 +60,7 @@ public class Persistencia {
 			//(String codigo, String fechaPedido, double total, double iva)
 
 			if (split.length >= 4) {
-				Pedido pedido = new Pedido(split[0], split[1], Double.valueOf(split[2]), Double.valueOf(split[3]));
+				Pedido pedido = new Pedido(split[0], split[1], Double.valueOf(split[2]), Double.valueOf(split[3]), split[4]);
 				laBurguesa.getPedidos().add(pedido);
 			} else {
 				System.err.println("Línea con datos incompletos: " + pedidoTexto);

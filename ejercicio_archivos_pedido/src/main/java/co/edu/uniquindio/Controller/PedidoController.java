@@ -78,14 +78,12 @@ public class PedidoController {
             addProductos(new Producto(codigo, TipoProducto.EXTRAQUESO, 15000));
         }
 
-        codigo_txt.setText("");
-        fecha_txt.setText("");
         producto_txt.setText("");
         cantidad_txt.setText("");
     }
 
     public void addProductos(Producto producto){
-        Pedido pedido = new Pedido("", "", 0, 0);
+        Pedido pedido = new Pedido("", "", 0, 0, "");
         pedido.agregarProducto(producto);
     }
 
@@ -104,7 +102,7 @@ public class PedidoController {
         txt_total.setText("$" + totalstr);
         txt_iva.setText("$" + ivastr);
 
-        Pedido pedido = new Pedido(codigo, fecha, total, iva); 
+        Pedido pedido = new Pedido(codigo, fecha, total, iva, producto); 
 
         Persistencia persistencia = new Persistencia();
         persistencia.guardarPedido(pedido);

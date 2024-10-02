@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * JavaFX App
@@ -18,6 +20,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("PedidoView"), 800, 500);
+        stage.setTitle("La Burguesa - Haz tu Pedido");
+        //stage.getIcons().add(new Image(App.class.getResourceAsStream("/imagenes/LOGO_HAMBURGUESA.png")));
+        //stage.getIcons().add(new Image(""));
+
         stage.setScene(scene);
         stage.show();
     }
