@@ -17,23 +17,10 @@ public class Persistencia {
     
     String rutaArchivoPedidos = "";
 
-    public void guardarEmpleado(Pedido pedido) throws IOException {
-
-		StringBuilder textoPedido = new StringBuilder();
-		
-		textoPedido.append(pedido.getCodigo()+",");
-		textoPedido.append(pedido.getFechaPedido()+",");
-		textoPedido.append(pedido.getTotal()+",");
-		textoPedido.append(pedido.getIva()+"\n");
-		//textoPedido.append(pedido.getProductos()+"\n");
-
-		ArchivoUtil.guardarArchivo(rutaArchivoPedidos,textoPedido.toString(),true);
-	}
-
-    public String obtenerRutaProperties(){
+	public String obtenerRutaProperties(){
         Properties properties= new Properties();
 		try {
-			properties.load(new FileInputStream(new File("C:/td/rutas/pedidos.txt")));
+			properties.load(new FileInputStream(new File("C:/td/rutas/properties.properties")));
             return properties.get("rutaArchivoPedidos").toString();
 		} 
         catch (FileNotFoundException e) {
@@ -45,6 +32,19 @@ public class Persistencia {
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+    public void guardarPedido(Pedido pedido) throws IOException {
+		rutaArchivoPedidos = obtenerRutaProperties();
+		StringBuilder textoPedido = new StringBuilder();
+		
+		textoPedido.append("\n"+pedido.getCodigo()+",");
+		textoPedido.append(pedido.getFechaPedido()+",");
+		textoPedido.append(pedido.getTotal()+",");
+		textoPedido.append(pedido.getIva());
+		//textoPedido.append(pedido.getProductos()+"\n");
+
+		ArchivoUtil.guardarArchivo(rutaArchivoPedidos,textoPedido.toString(),true);
 	}
 
     public LinkedList<Pedido> cargarPedidos(LaBurguesa laBurguesa) throws IOException {

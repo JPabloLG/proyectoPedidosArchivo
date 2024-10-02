@@ -1,15 +1,19 @@
 package co.edu.uniquindio.Controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.Model.Pedido;
 import co.edu.uniquindio.Model.LaBurguesa;
 import co.edu.uniquindio.Model.Producto;
 import co.edu.uniquindio.Model.TipoProducto;
+import co.edu.uniquindio.Persistencia.Persistencia;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -35,6 +39,9 @@ public class PedidoController {
 
     @FXML
     private TextField producto_txt;
+
+    @FXML
+    private Label lista_pedidos_txt;
 
     @FXML
     private TextField cantidad_txt;
@@ -70,20 +77,55 @@ public class PedidoController {
         cantidad_txt.setText("");
     }
 
+    public void addProductos(Producto producto){
+        Pedido pedido = new Pedido("", "", 0, 0);
+        pedido.addProducto(producto);
+    }
+
     @FXML
-    void generar_pedido_btn(ActionEvent event) {
+    void generar_pedido_btn(ActionEvent event) throws IOException {
         String codigo = codigo_txt.getText();
         String fecha = fecha_txt.getText();
         String cantidadtxt = cantidad_txt.getText();
         int cantidad = Integer.parseInt(cantidadtxt);
         String producto = producto_txt.getText();
-
         double total = Pedido.calcularTotal(producto, cantidad);
 
         Pedido pedido = new Pedido(codigo, fecha, total, total - (total - (total*0.19))); 
-        laBurguesa.pedidos.add(pedido);
+
+        Persistencia persistencia = new Persistencia();
+        persistencia.guardarPedido(pedido);
+        laBurguesa.getPedidos().add(pedido);
+
+        codigo_txt.setText("");
+        fecha_txt.setText("");
+        producto_txt.setText("");
+        cantidad_txt.setText("");
+
     }
 
+    public LinkedList<Pedido> mostrarListaPedidos(){
+        Persistencia persistencia = new Persistencia();
+        try {
+			persistencia.cargarPedidos(laBurguesa);
+			
+			return laBurguesa.getPedidos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+    }
+/*
+    public void mostrarPedidos() {
+		PedidoController pedidoController = new PedidoController();
+		LinkedList<Pedido> mostrarListaPedidos = pedidoController.mostrarListaPedidos();
+		String pedidos = "";
+		for (Pedido pedido : mostrarListaPedidos) {
+			pedidos += pedido.getCodigo()+"\n";
+		}
+	}
+*/
     @FXML
     void initialize() {
         assert agregar_btn != null : "fx:id=\"agregar_btn\" was not injected: check your FXML file 'PedidoView.fxml'.";
@@ -96,9 +138,4 @@ public class PedidoController {
         assert txt_total != null : "fx:id=\"txt_total\" was not injected: check your FXML file 'PedidoView.fxml'.";
 
     }
-
-    public void addProductos(Producto producto){
-        
-    }
-
 }
